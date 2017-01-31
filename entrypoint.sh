@@ -27,7 +27,7 @@ elif [ "$1" = "deploy-cloud" ] ; then
     kubectl proxy
 elif [ "$1" = "destroy" ] ; then
     make .addons
-    kubectl delete -f .addons/ --recursive || true
+    kubectl delete -f .addons/Demo/Manifests/countly.yaml || true
     # kubernetes creates a load balancer on it's own
     # we need to destroy it before terraform destroy
     make terraform.tfvars
