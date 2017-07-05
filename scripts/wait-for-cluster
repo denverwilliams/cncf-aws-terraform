@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-ELB=$(terraform output external-elb)
+ELB=$(terraform output -state /cncf/data/terraform.state external-elb)
 
 _retry() {
   [ -z "${2}" ] && return 1
@@ -15,3 +15,4 @@ _retry "❤ Curling apiserver external elb" curl --insecure --silent "https://${
 _retry "❤ Trying to connect to cluster with kubectl" kubectl cluster-info
 
 kubectl cluster-info
+sleep 2 # FIXME: Maybe API was up, but scheduling wasn't quite up?
